@@ -10,7 +10,7 @@ import {MatIconRegistry} from '@angular/material';
   styleUrls: ['./new-page.component.scss']
 })
 export class NewPageComponent implements OnInit {
-  private articleId: IArticles;
+  articleId: IArticles;
 
   constructor(
     private http: HttpService,

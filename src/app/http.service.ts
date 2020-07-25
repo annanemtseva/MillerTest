@@ -31,7 +31,7 @@ export class HttpService {
   }
 
   getNews() {
-    return this.http.get<IResponse>('http://newsapi.org/v2/top-headlines?country=us&category' +
+    return this.http.get<IResponse>('https://newsapi.org/v2/top-headlines?country=us&category' +
       '=business&apiKey=1647a09649fd4d209bc2e5f0f183ab84');
   }
 }
