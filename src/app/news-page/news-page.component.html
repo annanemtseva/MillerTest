@@ -1,0 +1,35 @@
+<mat-form-field>
+  <mat-label>Search</mat-label>
+  <input matInput type="text" [(ngModel)]="filterValue"
+         (keyup)="filterNews(filterValue)">
+</mat-form-field>
+<mat-table #table [dataSource]="dataSource">
+  <ng-container matColumnDef="title">
+    <mat-cell
+      *matCellDef="let article">
+      {{article.title}}
+      <hr>
+      <small> {{article.publishedAt | date : 'medium'}}
+      </small>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="img">
+    <mat-cell *matCellDef="let article">
+      <div class="img-wrap">
+        <img
+          src="{{article.urlToImage}}"
+          routerLink="/{{article.index}}"
+          class="article-img" alt="{{article.content}}"
+          id="{{article.index}}"
+          (click)="getIdTarget($event)"
+        >
+      </div>
+    </mat-cell>
+  </ng-container>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [length]="articles.length"
+               [pageSize]="10">
+</mat-paginator>
+
+
