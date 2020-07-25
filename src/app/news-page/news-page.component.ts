@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 import {HttpService, IArticles} from '../http.service';
 
@@ -9,32 +10,24 @@ import {HttpService, IArticles} from '../http.service';
   styleUrls: ['./news-page.component.scss']
 })
 export class NewsPageComponent implements OnInit {
-  private newArticle: IArticles[];
-
-
   constructor(
     private http: HttpService
-  ) {
-    // console.log(this.http.myLet)
-    // this.http.myLet = 'hello';
-    // console.log(this.http.myLet);
-  }
+  ) { }
+
   articles: IArticles[] = [];
   displayedColumns = ['title', 'img'];
-  dataSource: MatTableDataSource<IArticles>;
+  dataSource: MatTableDataSource<IArticles> = new MatTableDataSource();
   filterValue = '';
-  dataSourceArr: IArticles[];
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  @ViewChild('MatPaginator', {static: false}) paginator: MatPaginator;
-  private articleId: any;
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
     this.http.getNews().subscribe(res => {
-        this.dataSource = new MatTableDataSource(res.articles.map((data, index) => {
+      this.dataSource.data = res.articles.map((data, index) => {
           data.index = index;
           return data;
-        }));
-        // console.log(this.dataSource);
+        });
       }
     );
   }
@@ -44,9 +37,7 @@ export class NewsPageComponent implements OnInit {
   }
 
   getIdTarget(event) {
-    const arrArticles = this.dataSource.data[event.target.id];
-    console.log(arrArticles);
+    this.http.articleId = this.dataSource.data[event.target.id];
   }
-
 
 }

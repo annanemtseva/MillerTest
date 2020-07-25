@@ -9,7 +9,6 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 const routes: Routes = [
   {
     path: '', component: NewsPageComponent},
-  // {path: 'news', component: NewsPageComponent},
   {path: ':article.index', component: NewPageComponent},
   {path: 'error', component: ErrorPageComponent},
   {path: '**', redirectTo: '/error'}

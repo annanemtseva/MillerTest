@@ -3,7 +3,7 @@
   <input matInput type="text" [(ngModel)]="filterValue"
          (keyup)="filterNews(filterValue)">
 </mat-form-field>
-<mat-table #table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="title">
     <mat-cell
       *matCellDef="let article">
@@ -18,18 +18,16 @@
       <div class="img-wrap">
         <img
           src="{{article.urlToImage}}"
+          alt="Image not found"
+          onerror="this.src='assets/not-found.png';"
           routerLink="/{{article.index}}"
           class="article-img" alt="{{article.content}}"
           id="{{article.index}}"
-          (click)="getIdTarget($event)"
-        >
+          (click)="getIdTarget($event)">
       </div>
     </mat-cell>
   </ng-container>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-<mat-paginator [length]="articles.length"
-               [pageSize]="10">
+</table>
+<mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons>
 </mat-paginator>
-
-

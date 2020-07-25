@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 export interface IResponse {
@@ -23,18 +23,15 @@ export interface IArticles {
   providedIn: 'root'
 })
 export class HttpService {
-  private author: string;
+  articleId: IArticles;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
-  // myLet = '';
-
-getNews() {
+  getNews() {
     return this.http.get<IResponse>('http://newsapi.org/v2/top-headlines?country=us&category' +
       '=business&apiKey=1647a09649fd4d209bc2e5f0f183ab84');
   }
-
-
 }
